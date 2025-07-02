@@ -22,13 +22,9 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "mkdir -p build && cd build && cmake .. && make && cp -r ../public . && ./maintenance_server"
-waitForPort = 8080
+args = "mkdir -p build && cd build && cmake .. && make && ./maintenance_server"
+waitForPort = 5000
 
 [[ports]]
 localPort = 5000
 externalPort = 80
-
-[[ports]]
-localPort = 8080
-externalPort = 8080
