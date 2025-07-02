@@ -1,0 +1,56 @@
+Automobile Maintenance Library Creation
+Introduction
+The objective of this project is to design and develop a simple object-oriented
+library in C++ for tracking automobile maintenance. The system should support
+at least three car types: electric, gas, and diesel.
+System Requirements
+1. Vehicle Classes:
+• Create an Automobile base class with the following attributes:
+o make: std::string
+o model: std::string
+o year: int
+o odometerReading: int
+• Create derived classes for each car type: ElectricCar, GasCar,
+and DieselCar. Each derived class should inherit from
+the Automobile base class.
+2. Maintenance Tasks:
+• Define a set of maintenance tasks, including but not limited to:
+o Oil Change
+o Tire Rotation
+o Battery Inspection (only applicable to electric cars)
+• Create a MaintenanceTask base class with the following attributes:
+o taskName: std::string
+o description: std::string
+o applicableVehicleTypes: std::vectorstd::string (e.g., "electric", "gas",
+"diesel")
+3. Maintenance Library:
+• Create a MaintenanceLibrary class that manages a collection of vehicles
+and their associated maintenance tasks.
+• The MaintenanceLibrary class should have methods for:
+o Adding a vehicle to the library
+o Removing a vehicle from the library
+o Listing all vehicles in the library
+o Adding a maintenance task to a vehicle
+o Removing a maintenance task from a vehicle
+o Listing all maintenance tasks for a vehicle
+4. Unit Tests:
+• Develop unit tests to demonstrate the features of the library, including:
+o Adding and removing vehicles from the library
+o Adding and removing maintenance tasks for each vehicle type
+o Listing vehicles and maintenance tasks
+Functional Requirements
+1. The system should allow users to add, remove, and list vehicles in the library.
+2. The system should allow users to add, remove, and list maintenance tasks for
+each vehicle.
+3. The system should ensure that maintenance tasks are only applicable to the
+corresponding vehicle type (e.g., oil change is not applicable to electric cars).
+4. The system should provide a way to list all vehicles and their associated
+maintenance tasks.
+Non-Functional Requirements
+1. The system should be implemented in C++.
+2. The system should follow object-oriented programming principles.
+3. The system should include unit tests to demonstrate its functionality.
+Constraints
+1. The system should support at least three car types: electric, gas, and diesel.
+2. The system should have a user-friendly interface for adding, removing, and
+listing vehicles and maintenance tasks
