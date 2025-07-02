@@ -12,12 +12,7 @@
 
 ### Windows
 
-#### Option 1: Using Visual Studio
-1. Download and install [Visual Studio Community](https://visualstudio.microsoft.com/downloads/)
-2. During installation, select "Desktop development with C++"
-3. Install [CMake](https://cmake.org/download/) - choose "Add CMake to system PATH"
-
-#### Option 2: Using MinGW-w64
+#### Option 1: Using MinGW-w64 (Recommended)
 1. Install [MSYS2](https://www.msys2.org/)
 2. Open MSYS2 terminal and run:
 ```bash
@@ -25,6 +20,19 @@ pacman -S mingw-w64-x86_64-gcc
 pacman -S mingw-w64-x86_64-cmake
 pacman -S mingw-w64-x86_64-make
 ```
+3. Add MinGW to your system PATH: `C:\msys64\mingw64\bin`
+
+#### Option 2: Using Visual Studio
+1. Download and install [Visual Studio Community](https://visualstudio.microsoft.com/downloads/)
+2. During installation, select "Desktop development with C++"
+3. Install [CMake](https://cmake.org/download/) - choose "Add CMake to system PATH"
+
+#### Option 3: Quick Setup Scripts
+We've provided automated build scripts for Windows:
+- **Command Prompt**: Run `build_windows.bat`
+- **PowerShell**: Run `build_windows.ps1`
+
+These scripts will automatically detect your compiler and configure the build system.
 
 ### macOS
 1. Install Xcode Command Line Tools:
@@ -94,11 +102,30 @@ cd build
 ```
 
 ### Step 2: Configure with CMake
+
+#### For Linux/macOS:
 ```bash
 cmake ..
 ```
 
-If you get errors, try specifying the compiler:
+#### For Windows:
+```cmd
+# Use the provided build scripts (recommended):
+build_windows.bat
+
+# Or manually with specific generator:
+cmake -G "MinGW Makefiles" ..
+
+# For Visual Studio:
+cmake -G "Visual Studio 16 2019" ..
+```
+
+If you get "nmake not found" errors on Windows, use:
+```cmd
+cmake -G "MinGW Makefiles" ..
+```
+
+If you get other errors, try specifying the compiler:
 ```bash
 # For GCC:
 cmake -DCMAKE_CXX_COMPILER=g++ ..
@@ -159,6 +186,28 @@ cmake --version
 
 # If not found, add to PATH or reinstall CMake
 ```
+
+#### 1.1. Windows: "nmake is not recognized" Error
+This error occurs when CMake tries to use Visual Studio's nmake but can't find it.
+
+**Solution 1 - Use MinGW (Recommended):**
+```cmd
+cmake -G "MinGW Makefiles" ..
+```
+
+**Solution 2 - Use the provided build scripts:**
+```cmd
+# Command Prompt:
+build_windows.bat
+
+# PowerShell:
+.\build_windows.ps1
+```
+
+**Solution 3 - Use Visual Studio Developer Command Prompt:**
+1. Open "Developer Command Prompt for VS" from Start Menu
+2. Navigate to your project directory
+3. Run the standard cmake commands
 
 #### 2. Compiler Errors
 ```bash

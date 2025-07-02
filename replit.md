@@ -118,7 +118,16 @@ This is a C++ based automobile maintenance tracking system with a web frontend. 
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes
+
+- **July 02, 2025**: Windows compatibility improvements
+  - Added cross-platform CMake configuration with automatic generator selection
+  - Created Windows build scripts (build_windows.bat and build_windows.ps1)
+  - Fixed nmake compatibility issues by preferring MinGW Makefiles on Windows
+  - Updated threading library configuration for different Windows compilers
+  - Added Windows-specific troubleshooting documentation
+
 ## Changelog
 
-Changelog:
-- July 02, 2025. Initial setup
+- July 02, 2025: Initial setup
+- July 02, 2025: Enhanced Windows compatibility
