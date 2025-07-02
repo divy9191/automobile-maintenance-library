@@ -1,0 +1,30 @@
+modules = ["cpp"]
+
+[nix]
+channel = "stable-24_05"
+packages = ["cmake", "gcc", "gnumake", "pkg-config"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Automobile Maintenance Server"
+
+[[workflows.workflow]]
+name = "Automobile Maintenance Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mkdir -p build && cd build && cmake .. && make && ./maintenance_server"
+waitForPort = 5000
+
+[[ports]]
+localPort = 5000
+externalPort = 80
