@@ -255,7 +255,15 @@ public:
         address.sin_port = htons(port);
 
         if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) < 0) {
+#ifdef _WIN32
+            int error = WSAGetLastError();
+            std::cerr << "Failed to bind to port " << port << " (Windows Error: " << error << ")" << std::endl;
+            if (error == WSAEADDRINUSE) {
+                std::cerr << "Port " << port << " is already in use. Try a different port or close other applications using this port." << std::endl;
+            }
+#else
             std::cerr << "Failed to bind to port " << port << std::endl;
+#endif
             return false;
         }
 
@@ -264,7 +272,13 @@ public:
             return false;
         }
 
-        std::cout << "Server running on http://0.0.0.0:" << port << std::endl;
+        std::cout << "========================================" << std::endl;
+        std::cout << "Server started successfully!" << std::endl;
+        std::cout << "Open your web browser and go to:" << std::endl;
+        std::cout << "  http://localhost:" << port << std::endl;
+        std::cout << "  or" << std::endl;
+        std::cout << "  http://127.0.0.1:" << port << std::endl;
+        std::cout << "========================================" << std::endl;
         return true;
     }
 
@@ -325,13 +339,23 @@ int main() {
     library.addVehicle(std::make_shared<GasCar>("Toyota", "Camry", 2021, 25000));
     library.addVehicle(std::make_shared<DieselCar>("Ford", "F-250", 2020, 45000));
 
-    SimpleHTTPServer server(5000, library);
+    // Try different ports if 5000 is blocked
+    std::vector<int> ports = {5000, 8080, 3000, 8000, 9000};
     
-    if (!server.start()) {
-        std::cerr << "Failed to start server" << std::endl;
-        return 1;
+    for (int port : ports) {
+        std::cout << "Trying to start server on port " << port << "..." << std::endl;
+        SimpleHTTPServer server(port, library);
+        
+        if (server.start()) {
+            std::cout << "Press Ctrl+C to stop the server." << std::endl;
+            server.run();
+            return 0;
+        } else {
+            std::cout << "Port " << port << " failed, trying next port..." << std::endl;
+        }
     }
-
-    server.run();
-    return 0;
+    
+    std::cerr << "Failed to start server on any available port." << std::endl;
+    std::cerr << "This might be a firewall issue. Try running as administrator." << std::endl;
+    return 1;
 }

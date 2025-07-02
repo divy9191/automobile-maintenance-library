@@ -62,6 +62,12 @@ if exist maintenance_server.exe (
     echo   Release\maintenance_server.exe
 )
 echo.
-echo Then open your browser to: http://localhost:5000
+echo IMPORTANT: After running the server, look for the message:
+echo "Server started successfully!"
+echo.
+echo Then open your browser and use the URL shown in the server output.
+echo Usually it will be: http://localhost:5000
+echo.
+echo If you get "can't reach this page", see WINDOWS_TROUBLESHOOTING.md
 echo.
 pause
