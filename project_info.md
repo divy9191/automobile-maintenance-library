@@ -119,21 +119,16 @@ This is a C++ based automobile maintenance tracking system with a web frontend. 
 Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
-
-- **July 02, 2025**: Windows compatibility improvements
+ Windows compatibility improvements
   - Added cross-platform CMake configuration with automatic generator selection
   - Created Windows build scripts (build_windows.bat and build_windows.ps1)
   - Fixed nmake compatibility issues by preferring MinGW Makefiles on Windows
   - Updated threading library configuration for different Windows compilers
   - Added Windows-specific troubleshooting documentation
-  - **Latest**: Fixed Windows socket compatibility issues
+**Latest**: Fixed Windows socket compatibility issues
     - Replaced Unix socket headers with cross-platform networking code
     - Added Windows Winsock2 library integration
     - Updated CMakeLists.txt to link ws2_32 library on Windows
     - Fixed socket read/write operations for Windows compatibility
     - Server now builds and runs successfully on Windows systems
 
-## Changelog
-
-- July 02, 2025: Initial setup
-- July 02, 2025: Enhanced Windows compatibility
