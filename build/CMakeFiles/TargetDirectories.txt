@@ -1,3 +1,3 @@
-/home/runner/workspace/build/CMakeFiles/maintenance_server.dir
-/home/runner/workspace/build/CMakeFiles/edit_cache.dir
-/home/runner/workspace/build/CMakeFiles/rebuild_cache.dir
+C:/Users/Shantanu Singh/Downloads/AutoMaintenanceSystem (1)/AutoMaintenanceSystem/build/CMakeFiles/maintenance_server.dir
+C:/Users/Shantanu Singh/Downloads/AutoMaintenanceSystem (1)/AutoMaintenanceSystem/build/CMakeFiles/edit_cache.dir
+C:/Users/Shantanu Singh/Downloads/AutoMaintenanceSystem (1)/AutoMaintenanceSystem/build/CMakeFiles/rebuild_cache.dir
