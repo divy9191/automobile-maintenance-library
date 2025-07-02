@@ -31,9 +31,10 @@ add_executable(maintenance_server
 # Include directories
 target_include_directories(maintenance_server PRIVATE src)
 
-# Link libraries - cross-platform threading
+# Link libraries - cross-platform threading and networking
 if(WIN32)
-    # Windows uses native threading, no need for pthread
+    # Windows networking and threading libraries
+    target_link_libraries(maintenance_server ws2_32)
     if(MINGW)
         target_link_libraries(maintenance_server pthread)
     endif()

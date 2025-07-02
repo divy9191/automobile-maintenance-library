@@ -7,10 +7,19 @@
 #include <map>
 #include <functional>
 #include <cstring>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <unistd.h>
 #include <fstream>
+
+#ifdef _WIN32
+    #include <winsock2.h>
+    #include <ws2tcpip.h>
+    #pragma comment(lib, "ws2_32.lib")
+    #define close closesocket
+    typedef int socklen_t;
+#else
+    #include <sys/socket.h>
+    #include <netinet/in.h>
+    #include <unistd.h>
+#endif
 
 // Simple HTTP server implementation
 class SimpleHTTPServer {
@@ -216,14 +225,29 @@ public:
     SimpleHTTPServer(int port, MaintenanceLibrary& lib) : port(port), library(lib) {}
 
     bool start() {
+#ifdef _WIN32
+        WSADATA wsaData;
+        if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+            std::cerr << "WSAStartup failed" << std::endl;
+            return false;
+        }
+#endif
+
         server_fd = socket(AF_INET, SOCK_STREAM, 0);
         if (server_fd == -1) {
             std::cerr << "Failed to create socket" << std::endl;
+#ifdef _WIN32
+            WSACleanup();
+#endif
             return false;
         }
 
         int opt = 1;
+#ifdef _WIN32
+        setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, (char*)&opt, sizeof(opt));
+#else
         setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+#endif
 
         struct sockaddr_in address;
         address.sin_family = AF_INET;
@@ -253,7 +277,11 @@ public:
             if (client_fd < 0) continue;
 
             char buffer[4096] = {0};
+#ifdef _WIN32
+            int bytes_read = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
+#else
             ssize_t bytes_read = read(client_fd, buffer, sizeof(buffer) - 1);
+#endif
             
             if (bytes_read > 0) {
                 std::string request(buffer, bytes_read);
@@ -268,7 +296,11 @@ public:
                 }
 
                 std::string response = handleRequest(method, path, body);
+#ifdef _WIN32
+                send(client_fd, response.c_str(), response.length(), 0);
+#else
                 write(client_fd, response.c_str(), response.length());
+#endif
             }
 
             close(client_fd);
@@ -279,6 +311,9 @@ public:
         if (server_fd != -1) {
             close(server_fd);
         }
+#ifdef _WIN32
+        WSACleanup();
+#endif
     }
 };
 

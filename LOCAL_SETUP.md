@@ -209,6 +209,9 @@ build_windows.bat
 2. Navigate to your project directory
 3. Run the standard cmake commands
 
+#### 1.2. Windows: Socket/Network Compilation Errors
+If you see errors like "sys/socket.h: No such file or directory", this has been fixed in the latest version with Windows-compatible networking code. Make sure you're using the updated source files.
+
 #### 2. Compiler Errors
 ```bash
 # Check GCC version (needs 7+):
