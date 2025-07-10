@@ -71,7 +71,7 @@ sequenceDiagram
 mkdir build && cd build
 cmake ..
 make
-./automaint-server
+./maintenance_server.exe
 ```
 
  🪟 Build (Windows)
