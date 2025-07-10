@@ -122,11 +122,7 @@ make
  ✅ Winsock2 support added
  ✅ Socket read/write now cross-platform
 
----
 
- 📷 Screenshots (Optional)
-
-> Add screenshots or GIFs here if available.
 
 ---
 
@@ -140,13 +136,3 @@ Ensure that your code is tested and follows the coding guidelines.
  📜 License
 
 This project is licensed under the [MIT License](LICENSE).
-
----
-
-Let me know if you'd like:
-
- a version with dark theme support for GitHub Pages
- Markdown with collapsible sections
- A demo GIF preview
-
-Want me to push this directly into your existing `README.md` or format it for GitHub Pages?
