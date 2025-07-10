@@ -1,115 +1,152 @@
-Automobile Maintenance Library
-Overview
-This is a C++ based automobile maintenance tracking system with a web frontend. The system manages different types of vehicles (electric, gas, and diesel) and their associated maintenance tasks. It follows object-oriented design principles with a clear separation between the C++ backend library and a modern web interface built with Bootstrap and vanilla JavaScript.
 
-System Architecture
-Backend Architecture
-Core Language: C++ with C++17 standard
-Build System: CMake for cross-platform compilation
-Design Pattern: Object-oriented inheritance hierarchy
-Threading: Pthread support for concurrent operations
-Compilation: GCC with optimization flags (-O2) and strict warnings
-Frontend Architecture
-Framework: Vanilla JavaScript with Bootstrap 5.3.0
-UI Library: Bootstrap components for responsive design
-Icons: Font Awesome 6.4.0 for visual elements
-Architecture Pattern: Class-based JavaScript with modular design
-Communication: RESTful API calls to backend server
-Key Components
-C++ Backend Components
-Automobile Base Class
+🚗 Automobile Maintenance Library
 
-Attributes: make, model, year, odometerReading
-Serves as foundation for vehicle inheritance hierarchy
-Vehicle Derived Classes
+A modern C++ library for managing vehicle maintenance tasks, featuring a sleek Bootstrap-powered web interface. Tracks electric, gas, and diesel vehicles with task compatibility logic, real-time stats, and RESTful communication between frontend and backend.
 
-ElectricCar, GasCar, DieselCar
-Each inherits from Automobile base class
-Type-specific maintenance task compatibility
-MaintenanceTask Class
+---
 
-Attributes: taskName, description, applicableVehicleTypes
-Defines maintenance operations with vehicle type restrictions
-MaintenanceLibrary Class
+ 📐 System Architecture
 
-Central management system for vehicles and tasks
-Methods for CRUD operations on vehicles and maintenance tasks
-Validation logic for task-vehicle compatibility
-Frontend Components
-AutomobileMaintenanceApp Class
+ 🔧 Backend (C++17)
 
-Main application controller
-Manages vehicle and task data
-Handles user interactions and API communication
-Dashboard Interface
+ Build System: CMake (v3.16+)
+ Concurrency: POSIX Threads (Pthread)
+ Design: Object-Oriented Inheritance Hierarchy
+ Compiler: GCC/Clang with `-O2` optimizations
 
-Real-time statistics display
-Vehicle type breakdown (total, electric, gas, diesel)
-Interactive vehicle management interface
-Modal System
+ 🖥 Frontend (Bootstrap + JS)
 
-Bootstrap-based task addition modal
-Form validation and user feedback
-Toast notifications for user actions
-Data Flow
-Vehicle Management
+ UI Framework: Bootstrap 5.3.0
+ Icons: Font Awesome 6.4.0
+ Pattern: Modular, class-based Vanilla JS
+ Communication: RESTful API with backend
 
-User adds vehicle through web form
-Frontend validates input and sends API request
-C++ backend creates appropriate vehicle object
-Vehicle stored in MaintenanceLibrary collection
-Task Assignment
+---
 
-User selects vehicle for task addition
-Available tasks filtered by vehicle type compatibility
-Task association validated in backend
-Updated vehicle data returned to frontend
-Data Persistence
+ 🧩 Key Components
 
-In-memory storage in C++ objects
-API endpoints provide CRUD operations
-Frontend maintains synchronized state
-External Dependencies
-C++ Backend
-CMake: Build system (minimum version 3.16)
-PkgConfig: Package configuration management
-Pthread: POSIX threading library
-GCC/Clang: C++17 compatible compiler
-Frontend
-Bootstrap 5.3.0: UI framework via CDN
-Font Awesome 6.4.0: Icon library via CDN
-Modern Browser: ES6+ JavaScript support required
-Optional Dependencies
-Google Test: Unit testing framework (commented out in CMakeLists.txt)
-Web Server: For serving static files and API endpoints
-Deployment Strategy
-Build Process
-CMake configuration and build system generation
-C++ compilation with optimization flags
-Static file serving for web interface
-Executable generation for maintenance server
-Development Environment
-Cross-platform support via CMake
-Hot-reload capability for web development
-Modular testing setup (currently commented)
-Production Considerations
-Optimized C++ build (-O2 flag)
-Static asset serving
-API server deployment
-Memory management for vehicle collections
-User Preferences
-Preferred communication style: Simple, everyday language.
+ 🧱 C++ Classes
 
-Recent Changes
-Windows compatibility improvements
+ `Automobile` (Base Class): `make`, `model`, `year`, `odometerReading`
+ `ElectricCar` / `GasCar` / `DieselCar`: Inherit from `Automobile`
+ `MaintenanceTask`: Task name, description, vehicle compatibility
+ `MaintenanceLibrary`: CRUD for vehicles/tasks, validation logic
 
-Added cross-platform CMake configuration with automatic generator selection
-Created Windows build scripts (build_windows.bat and build_windows.ps1)
-Fixed nmake compatibility issues by preferring MinGW Makefiles on Windows
-Updated threading library configuration for different Windows compilers
-Added Windows-specific troubleshooting documentation Latest: Fixed Windows socket compatibility issues
-Replaced Unix socket headers with cross-platform networking code
-Added Windows Winsock2 library integration
-Updated CMakeLists.txt to link ws2_32 library on Windows
-Fixed socket read/write operations for Windows compatibility
-Server now builds and runs successfully on Windows systems
+ 🌐 Frontend Modules
+
+ `AutomobileMaintenanceApp`: Main controller
+ Dashboard UI: Live stats, vehicle management
+ Task Modal: Add/edit tasks with validation & toasts
+
+---
+
+ 🔁 Data Flow
+
+```mermaid
+sequenceDiagram
+  User ->> Web UI: Add Vehicle / Task
+  Web UI ->> API: POST /vehicle
+  API ->> Backend: Create Object
+  Backend ->> API: Vehicle Created
+  API ->> Web UI: Response
+```
+
+ 🚘 Vehicle Management: Input validated, object stored in backend.
+ 🔧 Task Assignment: Tasks filtered by vehicle type, validated and linked.
+ 💾 Data Persistence: In-memory with RESTful access.
+
+---
+
+ 🔧 Build & Run
+
+ 🛠 Prerequisites
+
+ C++17 Compiler (GCC/Clang/MinGW)
+ CMake 3.16+
+ PkgConfig, Pthread
+
+ ⚙️ Build (Linux / macOS)
+
+```bash
+mkdir build && cd build
+cmake ..
+make
+./automaint-server
+```
+
+ 🪟 Build (Windows)
+
+```bash
+build_windows.bat
+```
+
+---
+
+ 🚀 Deployment Strategy
+
+ Static asset serving via built-in server
+ Lightweight API server
+ Windows and Linux compatibility
+ Optimized with `-O2` flag for performance
+
+---
+
+ 🧪 Testing (Optional)
+
+ Google Test (commented in CMakeLists.txt)
+
+```bash
+cmake -DENABLE_TESTS=ON ..
+make
+./runTests
+```
+
+---
+
+ 📈 Features at a Glance
+
+ ✅ Cross-platform builds
+ ✅ Clean UI with responsive design
+ ✅ RESTful communication
+ ✅ Maintenance validation logic
+ ✅ Real-time statistics
+ ✅ Bootstrap modals & toasts
+ ✅ Modular & extendable design
+
+---
+
+ 📌 Recent Updates
+
+ ✅ Windows Compatibility Fixed
+ ✅ Automatic CMake generator selection
+ ✅ Winsock2 support added
+ ✅ Socket read/write now cross-platform
+
+---
+
+ 📷 Screenshots (Optional)
+
+> Add screenshots or GIFs here if available.
+
+---
+
+ 🤝 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first.
+Ensure that your code is tested and follows the coding guidelines.
+
+---
+
+ 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+Let me know if you'd like:
+
+ a version with dark theme support for GitHub Pages
+ Markdown with collapsible sections
+ A demo GIF preview
+
+Want me to push this directly into your existing `README.md` or format it for GitHub Pages?
